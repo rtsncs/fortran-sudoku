@@ -39,15 +39,9 @@ contains
         valid = .true.
         do i = 1, 9
             do k = 1, 9
-                if (count(board(:,i) == k) > 1) then
+                if (count(board(:,i) == k) > 1 .or. count(board(i,:) == k) > 1) then
                     valid = .false.
-                endif
-            end do
-        end do
-        do j = 1, 9
-            do k = 1, 9
-                if (count(board(j,:) == k) > 1) then
-                    valid = .false.
+                    return
                 endif
             end do
         end do
@@ -56,6 +50,7 @@ contains
                 do k = 1, 9
                     if (count(board(j:j+2,i:i+2) == k) > 1) then
                         valid = .false.
+                        return
                     endif
                 end do
             end do
